@@ -4,7 +4,7 @@ Introducing SnapchatAgent, an easy way to program Snapchat accounts to do anythi
 SnapchatAgent can be used to easily create image-based notification services, chatbots, search interfaces,
 generally any kind of intelligent agent that uses picture messages as its interaction mode.
 
-Uses the Snapchat API as disclosed by [GibSec](http://gibsonsec.org/snapchat/fulldisclosure/) through [martinp's  pysnap library](https://github.com/martinp/pysnap).
+Uses the Snapchat API as disclosed by [GibSec](http://gibsonsec.org/snapchat/fulldisclosure/).
 
 ## Examples of Snapchat Agents
 
@@ -31,7 +31,7 @@ When sent an image, sends back the most similar image to that picture on the web
 
 #### The GIF Maniac (add TheGIFManiac on Snapchat; source at examples/gifmaniac.py)
 
-Posts the trending GIFs to its story.
+Posts popular GIFs to its story.
 
 #### The Connector (add TheConnector on Snapchat; source at examples/connector.py)
 
@@ -77,18 +77,14 @@ For example, here is the code for the `ReflectorAgent`, which simply responds to
 back to the user who sent it:
 
 ```python
-
 class ReflectorAgent(SnapchatAgent):
   def on_snap(self, sender, snap):
     self.send_snap([sender], snap)
-
 ```
 
 Then to run agent:
 
 ```python
-
 agent = ReflectorAgent(<account username>, <account password>)
 agent.listen()
-
 ```
