@@ -5,6 +5,12 @@ class ReflectorAgent(SnapchatAgent):
     def on_snap(self, sender, snap):
         self.send_snap([sender], snap)
 
+    def on_friend_add(self, friend):
+        self.add_friend(friend)
+
+    def on_friend_delete(self, friend):
+        self.delete_friend(friend)
+
 if __name__ == '__main__':
     parser = ArgumentParser("Reflector Agent")
     parser.add_argument('-u', '--username', required = True, type=str, help = "Username of the account to run the agent on")

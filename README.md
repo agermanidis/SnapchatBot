@@ -23,11 +23,11 @@ Sends you an auto-welcome message when you add it to your friends.
 
 #### The Reporter (add TheReporter on Snapchat; source at examples/reporter.py)
 
-Sends you a snap when breaking news happen.
+Sends you a snap when breaking news happen. Follows the [BBC Breaking News twitter account](https://twitter.com/bbcbreaking).
 
-#### The Researcher (add TheResearcher on Snapchat; source at examples/researcher.py)
+#### The Googler (add TheResearcher on Snapchat; source at examples/googler.py)
 
-When sent an image, sends back the most similar image to that picture on the web.
+When sent an image, sends back the most similar image to that picture on the web. Uses Google Image Search.
 
 #### The GIF Maniac (add TheGIFManiac on Snapchat; source at examples/gifmaniac.py)
 
@@ -49,7 +49,7 @@ You also need to have ffmpeg installed if you want to send video snaps.
 
 `SnapchatAgent` currently supports the following methods:
 
-* `SnapchatAgent#send_snap(recipients, snap)` -- sends snap `snap` to recipient usernames `recipients`
+* `SnapchatAgent#send_snap(recipients, snap)` -- sends snap `snap` to the list of usernames `recipients`
 * `SnapchatAgent#add_friend(username)` -- adds user with username `username` to the agent's friends
 * `SnapchatAgent#delete_friend(username)` -- deletes user with username `username` from the agent's friends
 * `SnapchatAgent#block(username)` -- blocks user with username `username`

@@ -3,44 +3,11 @@ from pysnap import Snapchat, get_file_extension
 from PIL import Image
 from StringIO import StringIO
 
-SNAPCHAT_IMAGE_DIMENSIONS = (290, 600)
+from utils import create_temporary_file, is_video_file, is_image_file, guess_type, resize_image, get_video_duration, MEDIA_TYPE_VIDEO, MEDIA_TYPE_IMAGE
 
-MEDIA_TYPE_UNKNOWN = -1
-MEDIA_TYPE_IMAGE = 1
-MEDIA_TYPE_VIDEO = 2
-MEDIA_TYPE_VIDEO_NOAUDIO = 3
 
-DEFAULT_TIMEOUT = 5
-DEFAULT_DURATION = 10
-
-def create_temporary_file(suffix):
-    return tempfile.NamedTemporaryFile(suffix = suffix, delete = False)
-
-def is_video_file(path):
-    return mimetypes.guess_type(path)[0].startswith("video")
-
-def is_image_file(path):
-    return mimetypes.guess_type(path)[0].startswith("image")
-
-def guess_type(path):
-    if is_video_file(path): return MEDIA_TYPE_VIDEO
-    if is_image_file(path): return MEDIA_TYPE_IMAGE
-    return MEDIA_TYPE_UNKNOWN
-
-def resize_image(im, output_path):
-    im.thumbnail(SNAPCHAT_IMAGE_DIMENSIONS, Image.ANTIALIAS)
-    im.save(output_path)
-
-def duration_string_to_timedelta(s):
-    [hours, minutes, seconds] = map(int, s.split(':'))
-    seconds = seconds + minutes * 60 + hours * 3600
-    return datetime.timedelta(seconds = seconds)
-
-def get_video_duration(path):
-    result = subprocess.Popen(["ffprobe", path], stdout = subprocess.PIPE, stderr = subprocess.STDOUT)
-    matches = [x for x in result.stdout.readlines() if "Duration" in x]
-    duration_string = re.findall(r'Duration: ([0-9:]*)', matches[0])[0]
-    return math.ceil(duration_string_to_timedelta(duration_string).seconds)
+DEFAULT_TIMEOUT = 3
+DEFAULT_DURATION = 5
 
 class Snap(object):
     @staticmethod
@@ -108,7 +75,7 @@ class Snap(object):
             self.file = open(path)
 
 class SnapchatAgent(object):
-    def __init__(self, username, password):
+    def __init__(self, username, password, **kwargs):
         self.username = username
         self.password = password
 
@@ -119,7 +86,7 @@ class SnapchatAgent(object):
         self.added_me = self.get_added_me()
 
         if hasattr(self, "initialize"):
-            self.initialize()
+            self.initialize(**kwargs)
 
     def process_snap(self, snap_obj, data):
         media_type = snap_obj["media_type"]
