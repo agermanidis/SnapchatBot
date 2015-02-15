@@ -31,7 +31,7 @@ When sent an image, sends back the most similar image to that picture on the web
 
 #### The GIF Maniac (add TheGIFManiac on Snapchat; source at examples/gifmaniac.py)
 
-Posts popular GIFs to its story.
+Posts popular GIFs grabbed from the [Giphy](http://giphy.com) home page to its story.
 
 #### The Connector (add TheConnector on Snapchat; source at examples/connector.py)
 
@@ -43,7 +43,7 @@ sent to the Connector will then arrive at the other person's inbox.
 
     $ python setup.py install
 
-You also need to have ffmpeg installed if you want to send video snaps.
+You also need to have [ffmpeg](https://www.ffmpeg.org/) and [ImageMagick](http://www.imagemagick.org/) installed.
 
 ## How to build your own agents
 

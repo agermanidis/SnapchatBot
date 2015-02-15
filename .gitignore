@@ -4,3 +4,4 @@ build/
 dist/
 .DS_Store
 agents.yml
+temp_dir

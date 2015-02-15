@@ -20,9 +20,9 @@ class Snap(object):
 
         if media_type is MEDIA_TYPE_VIDEO:
             if duration is None: duration = get_video_duration(path)
-            tmp = create_temporary_file(".mp4")
+            tmp = create_temporary_file(".snap.mp4")
             output_path = tmp.name
-            subprocess.Popen(["ffmpeg", "-i", path, out_path]).wait()
+            subprocess.Popen(["ffmpeg", "-y", "-i", path, output_path]).wait()
 
         elif media_type is MEDIA_TYPE_IMAGE:
             image = Image.open(path)

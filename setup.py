@@ -17,6 +17,7 @@ setup(
     scripts=['examples/reflector.py', 'examples/storifier.py'],
     install_requires=[
         'pysnap>=0.1.1',
+        'schedule',
     ],
-    license=open('LICENSE').read()
+    license=open('LICENSE').read(),
 )
