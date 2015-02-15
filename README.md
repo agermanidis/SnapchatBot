@@ -8,32 +8,39 @@ Uses the Snapchat API as disclosed by [GibSec](http://gibsonsec.org/snapchat/ful
 
 ## Examples of Snapchat Agents
 
-#### The Reflector (add TheReflector on Snapchat; source at examples/reflector.py)
+#### The Reflector
+*(add TheReflector on Snapchat; source at examples/reflector.py)*
 
 Sends back everything you send it.
 
-#### The Storifier (add TheStorifier on Snapchat; source at examples/storifier.py)
+#### The Storifier 
+*(add TheStorifier on Snapchat; source at examples/storifier.py)*
 
 Takes all the snaps sent to it and adds them to its story. It can be used to collect responses
 from multiple people around a single theme, much like a Twitter hashtag.
 
-#### The Auto-Welcomer (add TheAutoWelcomer on Snapchat; source at examples/autowelcomer.py)
+#### The Auto-Welcomer 
+*(add TheAutoWelcomer on Snapchat; source at examples/autowelcomer.py)*
 
 Sends you an auto-welcome message when you add it to your friends.
 
-#### The Reporter (add TheReporter on Snapchat; source at examples/reporter.py)
+#### The Reporter
+*(add TheReporter on Snapchat; source at examples/reporter.py)*
 
 Sends you a snap when breaking news happen. Follows the [BBC Breaking News twitter account](https://twitter.com/bbcbreaking).
 
-#### The Googler (add TheResearcher on Snapchat; source at examples/googler.py)
+#### The Googler 
+*(add TheResearcher on Snapchat; source at examples/googler.py)*
 
 When sent an image, sends back the most similar image to that picture on the web. Uses Google Image Search.
 
-#### The GIF Maniac (add TheGIFManiac on Snapchat; source at examples/gifmaniac.py)
+#### The GIF Maniac 
+*(add TheGIFManiac on Snapchat; source at examples/gifmaniac.py)*
 
 Posts popular GIFs taken from the [Giphy](http://giphy.com) home page to its story.
 
-#### The Connector (add TheConnector on Snapchat; source at examples/connector.py)
+#### The Connector 
+*(add TheConnector on Snapchat; source at examples/connector.py)*
 
 When you add the Connector to your friends, it links you with another user who's also added it. Every snap sent to the Connector will then arrive at the other person's inbox.
 
