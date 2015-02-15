@@ -21,6 +21,12 @@ def is_valid_video(filename):
     return subprocess.Popen(["ffprobe", filename]).wait() == 0
 
 class GIFManiacAgent(SnapchatAgent):
+    def on_friend_add(self, friend):
+        self.add_friend(friend)
+
+    def on_friend_delete(self, friend):
+        self.delete_friend(friend)
+    
     def run(self):
         def post_gifs():
             urls = grab_trending_gif_urls()

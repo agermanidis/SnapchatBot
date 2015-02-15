@@ -1,8 +1,8 @@
-# SnapchatAgent: Building intelligent agents that live on Snapchat
+# SnapchatAgent: Building bots that live on Snapchat
 
 Introducing SnapchatAgent, an easy way to program Snapchat accounts to do anything you want.
 SnapchatAgent can be used to easily create image-based notification services, chatbots, search interfaces,
-generally any kind of intelligent agent that uses picture messages as its interaction mode.
+generally any kind of bot that uses picture messages as its interaction mode.
 
 Uses the Snapchat API as disclosed by [GibSec](http://gibsonsec.org/snapchat/fulldisclosure/).
 
@@ -31,13 +31,11 @@ When sent an image, sends back the most similar image to that picture on the web
 
 #### The GIF Maniac (add TheGIFManiac on Snapchat; source at examples/gifmaniac.py)
 
-Posts popular GIFs grabbed from the [Giphy](http://giphy.com) home page to its story.
+Posts popular GIFs taken from the [Giphy](http://giphy.com) home page to its story.
 
 #### The Connector (add TheConnector on Snapchat; source at examples/connector.py)
 
-ChatRoulette inside Snapchat. When you add the Connector to your friends,
-it links you with another user who's also added it. Every snap
-sent to the Connector will then arrive at the other person's inbox.
+When you add the Connector to your friends, it links you with another user who's also added it. Every snap sent to the Connector will then arrive at the other person's inbox.
 
 ## Installation
 
@@ -56,7 +54,7 @@ You also need to have [ffmpeg](https://www.ffmpeg.org/) and [ImageMagick](http:/
 * `SnapchatAgent#get_snaps(mark_viewed = True)` -- gets snaps in the agent's inbox that haven't been viewed yet (use `mark_viewed = False` as a keyword argument if you don't want the agent to mark every snap received as viewed)
 * `SnapchatAgent#mark_viewed(snap)` -- marks `snap` as viewed
 * `SnapchatAgent#get_friends()` -- gets the agent's friends
-* `SnapchatAgent#get_added_me()` -- gets the users that have added the agent to their friends
+* `SnapchatAgent#get_added_me()` -- gets all users that have added the agent to their friends
 * `SnapchatAgent#listen()` -- listens to events (and triggers `on_snap`, `on_friend_add`, or `on_friend_delete`, if they are defined)
 
 To create a snap to send with your agent, either use `Snap.from_file(path_to_file)` with a path
@@ -78,8 +76,17 @@ back to the user who sent it:
 
 ```python
 class ReflectorAgent(SnapchatAgent):
+  # when receiving a snap, sends the same snap back to the sender
   def on_snap(self, sender, snap):
     self.send_snap([sender], snap)
+
+  # when someone adds the agent, the agent adds them back
+  def on_friend_add(self, friend):
+    self.add_friend(self, friend)
+
+  # when someone deletes the agent, the agent deletes them too
+  def on_friend_delete(self, friend):
+    self.delete_friend(self, friend)
 ```
 
 Then to run agent:

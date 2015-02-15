@@ -10,7 +10,7 @@ logging.basicConfig(format=FORMAT)
 logger = logging.getLogger()
 logger.level = logging.DEBUG
 
-DEFAULT_TIMEOUT = 3
+DEFAULT_TIMEOUT = 10
 DEFAULT_DURATION = 5
 
 class Snap(object):

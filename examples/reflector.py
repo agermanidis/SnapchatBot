@@ -19,4 +19,4 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     agent = ReflectorAgent(args.username, args.password)
-    agent.listen()
+    agent.listen(timeout = 5)

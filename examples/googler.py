@@ -13,7 +13,6 @@ def get_bucket(conn, name, public = False):
     return b
 
 def upload_file(bucket, filename):
-    print 'filename', filename
     k = Key(bucket)
     k.key = uuid.uuid4().hex + get_file_extension(filename)
     k.set_contents_from_filename(filename)
@@ -77,12 +76,5 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    agent = GooglerAgent(
-        args.username,
-        args.password,
-        aws_key = args.aws_key,
-        aws_secret = args.aws_secret,
-        bucket = args.bucket
-    )
-
-    agent.listen()
+    agent = GooglerAgent(args.username, args.password, aws_key = args.aws_key, aws_secret = args.aws_secret, bucket = args.bucket)
+    agent.listen(timeout = 5)
