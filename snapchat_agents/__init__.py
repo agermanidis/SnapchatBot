@@ -1,10 +1,14 @@
-import time, tempfile, subprocess, re, datetime, mimetypes
+import time, tempfile, subprocess, re, datetime, mimetypes, logging, uuid
 from pysnap import Snapchat, get_file_extension
 from PIL import Image
 from StringIO import StringIO
 
 from utils import create_temporary_file, is_video_file, is_image_file, guess_type, resize_image, get_video_duration, MEDIA_TYPE_VIDEO, MEDIA_TYPE_IMAGE
 
+FORMAT = '[%(asctime)-15s] %(message)s'
+logging.basicConfig(format=FORMAT)
+logger = logging.getLogger()
+logger.level = logging.DEBUG
 
 DEFAULT_TIMEOUT = 3
 DEFAULT_DURATION = 5
@@ -53,6 +57,7 @@ class Snap(object):
             self.from_me = False
 
         else:
+            self.snap_id = uuid.uuid4().hex
             self.from_me = True
 
         if 'data' in opts:
@@ -76,6 +81,8 @@ class Snap(object):
 
 class SnapchatAgent(object):
     def __init__(self, username, password, **kwargs):
+        self.agent_id = uuid.uuid4().hex[0:4]
+
         self.username = username
         self.password = password
 
@@ -87,6 +94,9 @@ class SnapchatAgent(object):
 
         if hasattr(self, "initialize"):
             self.initialize(**kwargs)
+
+    def log(self, message, level = logging.DEBUG):
+        logger.log(level, "[%s-%s] %s" % (self.__class__.__name__, self.agent_id, message))
 
     def process_snap(self, snap_obj, data):
         media_type = snap_obj["media_type"]
@@ -106,6 +116,7 @@ class SnapchatAgent(object):
 
     def listen(self, timeout = DEFAULT_TIMEOUT):
         while True:
+            self.log("Querying for new snaps...")
             snaps = self.get_snaps()
 
             if hasattr(self, "on_snap"):
@@ -121,10 +132,12 @@ class SnapchatAgent(object):
 
             if hasattr(self, "on_friend_add"):
                 for friend in newly_added:
+                    self.log("User %s added me" % friend)
                     self.on_friend_add(friend)
 
             if hasattr(self, "on_friend_delete"):
                 for friend in newly_deleted:
+                    self.log("User %s deleted me" % friend)
                     self.on_friend_delete(friend)
 
             time.sleep(timeout)
@@ -137,17 +150,27 @@ class SnapchatAgent(object):
         return map(lambda fr: fr['name'], updates["added_friends"])
 
     def send_snap(self, recipients, snap):
-        if not snap.uploaded: snap.upload(self)
+        self.log("Preparing to send snap %s" % snap.snap_id)
+
+        if not snap.uploaded:
+            self.log("Uploading snap %s" % snap.snap_id)
+            snap.upload(self)
 
         if type(recipients) is not list:
             recipients = [recipients]
 
         recipients_str = ','.join(recipients)
 
+        self.log("Sending snap %s to %s" % (snap.snap_id, recipients_str))
+
         self.client.send(snap.media_id, recipients_str)
 
     def post_story(self, snap):
-        if not snap.uploaded: snap.upload(self)
+        if not snap.uploaded:
+            self.log("Uploading snap")
+            snap.upload(self)
+
+        self.log("Posting snap as story")
         self.client.send_to_story(snap.media_id, media_type = snap.media_type)
 
     def add_friend(self, username):
