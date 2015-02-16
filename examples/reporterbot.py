@@ -1,8 +1,8 @@
 import time, urllib2, textwrap, re, HTMLParser, tempfile
 from PIL import Image, ImageDraw, ImageFont
 from argparse import ArgumentParser
-from snapchat_agents import SnapchatAgent, Snap
-from snapchat_agents.utils import resize_image
+from snapchat_bots import SnapchatBot, Snap
+from snapchat_bots.utils import resize_image
 
 h = HTMLParser.HTMLParser()
 
@@ -45,7 +45,7 @@ def create_breaking_news_image_from_info(info):
 
     return im
 
-class ReporterAgent(SnapchatAgent):
+class ReporterBot(SnapchatBot):
     def initialize(self):
         self.last_tweet_url = None
 
@@ -78,11 +78,11 @@ class ReporterAgent(SnapchatAgent):
             time.sleep(60)
 
 if __name__ == '__main__':
-    parser = ArgumentParser("Reporter Agent")
-    parser.add_argument('-u', '--username', required = True, type=str, help = "Username of the account to run the agent on")
-    parser.add_argument('-p', '--password', required = True, type=str, help = "Password of the account to run the agent on")
+    parser = ArgumentParser("Reporter Bot")
+    parser.add_argument('-u', '--username', required = True, type=str, help = "Username of the account to run the bot on")
+    parser.add_argument('-p', '--password', required = True, type=str, help = "Password of the account to run the bot on")
 
     args = parser.parse_args()
 
-    agent = ReporterAgent(args.username, args.password)
-    agent.run()
+    bot = ReporterBot(args.username, args.password)
+    bot.run()

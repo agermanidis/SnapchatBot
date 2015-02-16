@@ -6,18 +6,18 @@ except ImportError:
     from distutils.core import setup
 
 setup(
-    name='snapchat_agents',
+    name='snapchat_bots',
     version='0.1',
-    description='Library for making Snapchat Agents',
+    description='Library for building Snapchat bots',
     long_description=open('README.md').read(),
     author='Anastasis Germanidis',
     author_email='agermanidis@gmail.com',
-    url='https://github.com/agermanidis/snapchat_agents',
-    packages=['snapchat_agents'],
-    scripts=['examples/reflector.py', 'examples/storifier.py'],
+    url='https://github.com/agermanidis/SnapchatBot',
+    packages=['snapchat_bots'],
     install_requires=[
         'pysnap>=0.1.1',
-        'schedule',
+        'schedule>=0.3.1',
+        'requests>=2.5.1'
     ],
-    license=open('LICENSE').read(),
+    license=open('LICENSE').read()
 )
