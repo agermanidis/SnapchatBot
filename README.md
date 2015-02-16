@@ -8,39 +8,39 @@ Uses the Snapchat's unofficial API as disclosed by [GibSec](http://gibsonsec.org
 
 ## Bots Included
 
-#### The Reflector
-*(add TheReflector on Snapchat; source at examples/reflector.py)*
+#### The Reflector Bot
+*(add ReflectorBot on Snapchat; source at examples/reflectorbot.py)*
 
 Sends back everything you send it.
 
-#### The Storifier
-*(add TheStorifier on Snapchat; source at examples/storifier.py)*
+#### The Storifier Bot
+*(add StorifierBot on Snapchat; source at examples/storifierbot.py)*
 
 Takes all the snaps sent to it and adds them to its story. It can be used to collect responses
 from multiple people around a single theme, much like a Twitter hashtag.
 
-#### The Auto-Welcomer
-*(add TheAutoWelcomer on Snapchat; source at examples/autowelcomer.py)*
+#### The Auto-Welcome Bot
+*(add AutowelcomeBot on Snapchat; source at examples/autowelcomebot.py)*
 
 Sends you an auto-welcome message when you add it to your friends.
 
-#### The Reporter
-*(add TheReporter on Snapchat; source at examples/reporter.py)*
+#### The Reporter Bot
+*(add ReporterBot on Snapchat; source at examples/reporterbot.py)*
 
 Sends you a snap when breaking news happen. Follows the [BBC Breaking News twitter account](https://twitter.com/bbcbreaking).
 
-#### The Googler
-*(add TheResearcher on Snapchat; source at examples/googler.py)*
+#### The Googler Bot
+*(add GooglerBot on Snapchat; source at examples/googlerbot.py)*
 
 When sent an image, sends back the most similar image to that picture on the web. Uses Google Image Search.
 
-#### The GIF Maniac
-*(add TheGIFManiac on Snapchat; source at examples/gifmaniac.py)*
+#### The GIF Bot
+*(add GIFBot on Snapchat; source at examples/gifmaniac.py)*
 
 Posts popular GIFs taken from the [Giphy](http://giphy.com) home page to its story.
 
 #### The Connector
-*(add TheConnector on Snapchat; source at examples/connector.py)*
+*(add ConnectorBot on Snapchat; source at examples/connectorbot.py)*
 
 When you add the Connector to your friends, it links you with a stranger who's also added it. Every snap sent to the Connector will then arrive at the stranger's inbox, and all snaps sent from the stranger to the Connector will come to you. It's like ChatRoulette on Snapchat.
 
