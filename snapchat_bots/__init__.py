@@ -10,7 +10,7 @@ logging.basicConfig(format=FORMAT)
 logger = logging.getLogger()
 logger.level = logging.DEBUG
 
-DEFAULT_TIMEOUT = 10
+DEFAULT_TIMEOUT = 15
 DEFAULT_DURATION = 5
 
 class Snap(object):
@@ -42,8 +42,8 @@ class Snap(object):
         resize_image(img, f.name)
         return Snap(path = f.name, media_type = MEDIA_TYPE_IMAGE, duration = duration)
 
-    def upload(self, agent):
-        self.media_id = agent.client.upload(self.file.name)
+    def upload(self, bot):
+        self.media_id = bot.client.upload(self.file.name)
         self.uploaded = True
 
     def __init__(self, **opts):
@@ -79,9 +79,9 @@ class Snap(object):
             path = opts['path']
             self.file = open(path)
 
-class SnapchatAgent(object):
+class SnapchatBot(object):
     def __init__(self, username, password, **kwargs):
-        self.agent_id = uuid.uuid4().hex[0:4]
+        self.bot_id = uuid.uuid4().hex[0:4]
 
         self.username = username
         self.password = password
@@ -96,7 +96,7 @@ class SnapchatAgent(object):
             self.initialize(**kwargs)
 
     def log(self, message, level = logging.DEBUG):
-        logger.log(level, "[%s-%s] %s" % (self.__class__.__name__, self.agent_id, message))
+        logger.log(level, "[%s-%s] %s" % (self.__class__.__name__, self.bot_id, message))
 
     def process_snap(self, snap_obj, data):
         media_type = snap_obj["media_type"]
@@ -109,7 +109,6 @@ class SnapchatAgent(object):
                     duration = duration,
                     sender = sender)
         return snap
-
 
     def mark_viewed(self, snap):
         self.client.mark_viewed(snap.snap_id)

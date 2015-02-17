@@ -6,3 +6,4 @@ dist/
 .DS_Store
 agents.yml
 temp_dir
+run_bots.py

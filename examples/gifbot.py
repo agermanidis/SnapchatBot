@@ -20,7 +20,7 @@ def gif_to_video(url):
 def is_valid_video(filename):
     return subprocess.Popen(["ffprobe", filename]).wait() == 0
 
-class GIFManiacBot(SnapchatBot):
+class GIFBot(SnapchatBot):
     def on_friend_add(self, friend):
         self.add_friend(friend)
 
@@ -50,5 +50,5 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    bot = GIFManiacBot(args.username, args.password)
+    bot = GIFBot(args.username, args.password)
     bot.run()
