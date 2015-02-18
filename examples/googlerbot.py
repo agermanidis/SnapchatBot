@@ -6,13 +6,15 @@ from lxml.html import document_fromstring
 from snapchat_bots import SnapchatBot, Snap
 
 def public_url_for(key):
-    return ('http://%s.s3.amazonaws.com/' % key.bucket.name)  + key.key
+    return ('http://%s.s3.amazonaws.com/' % key.bucket.name) + key.key
+
 
 def get_bucket(conn, name, public = False):
     b = conn.get_bucket(name)
     if public:
         b.make_public()
     return b
+
 
 def upload_file(bucket, filename):
     k = Key(bucket)
@@ -21,12 +23,15 @@ def upload_file(bucket, filename):
     k.make_public()
     return public_url_for(k)
 
+
 def get_file_extension(filename):
     return os.path.splitext(filename)[1]
+
 
 def get_url_extension(url):
     path = urlparse.urlparse(url).path
     return os.path.splitext(path)[1]
+
 
 def download_file(url):
     resp = requests.get(url)
@@ -34,20 +39,22 @@ def download_file(url):
     local_file.write(resp.content)
     return local_file.name
 
+
 def reverse_image_search(url):
-    headers = {}
-    headers['User-Bot'] = "Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.27 Safari/537.17"
+    value = "Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.27 Safari/537.17"
+    headers = {'User-Bot': value}
     search_url = 'https://www.google.com/searchbyimage?image_url=%s' % url
     resp = requests.get(search_url, headers=headers)
     root = document_fromstring(resp.content)
     href = root.cssselect(".bia")[0].attrib['href']
-    print search_url
+    print(search_url)
     new_url = "https://www.google.com" + href
     resp = requests.get(new_url, headers=headers)
     return re.search("imgurl=([^&]*)", resp.content).group(1)
 
+
 class GooglerBot(SnapchatBot):
-    def initialize(self, aws_key = None, aws_secret = None, bucket = None):
+    def initialize(self, aws_key=None, aws_secret=None, bucket=None):
         self.conn = boto.connect_s3(aws_key, aws_secret)
         self.bucket = get_bucket(self.conn, bucket)
 
@@ -81,5 +88,5 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    bot = GooglerBot(args.username, args.password, aws_key = args.aws_key, aws_secret = args.aws_secret, bucket = args.bucket)
-    bot.listen(timeout = 3)
+    bot = GooglerBot(args.username, args.password, aws_key=args.aws_key, aws_secret=args.aws_secret, bucket=args.bucket)
+    bot.listen(timeout=3)

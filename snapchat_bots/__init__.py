@@ -13,6 +13,11 @@ logger.level = logging.DEBUG
 DEFAULT_TIMEOUT = 15
 DEFAULT_DURATION = 5
 
+
+class UnknownMediaType(Exception):
+    pass
+
+
 class Snap(object):
     @staticmethod
     def from_file(path, duration = None):
@@ -29,18 +34,19 @@ class Snap(object):
             tmp = create_temporary_file(".jpg")
             output_path = tmp.name
             resize_image(image, output_path)
-            if duration is None: duration = DEFAULT_DURATION
+            if not duration:
+                duration = DEFAULT_DURATION
 
         else:
-            raise Exception, "Could not determine media type of the file"
+            raise UnknownMediaType("Could not determine media type of the file")
 
-        return Snap(path = output_path, media_type = media_type, duration = duration)
+        return Snap(path=output_path, media_type=media_type, duration=duration)
 
     @staticmethod
-    def from_image(img, duration = DEFAULT_DURATION):
+    def from_image(img, duration=DEFAULT_DURATION):
         f = create_temporary_file(".jpg")
         resize_image(img, f.name)
-        return Snap(path = f.name, media_type = MEDIA_TYPE_IMAGE, duration = duration)
+        return Snap(path=f.name, media_type=MEDIA_TYPE_IMAGE, duration=duration)
 
     def upload(self, bot):
         self.media_id = bot.client.upload(self.file.name)
@@ -79,6 +85,7 @@ class Snap(object):
             path = opts['path']
             self.file = open(path)
 
+
 class SnapchatBot(object):
     def __init__(self, username, password, **kwargs):
         self.bot_id = uuid.uuid4().hex[0:4]
@@ -95,25 +102,26 @@ class SnapchatBot(object):
         if hasattr(self, "initialize"):
             self.initialize(**kwargs)
 
-    def log(self, message, level = logging.DEBUG):
+    def log(self, message, level=logging.DEBUG):
         logger.log(level, "[%s-%s] %s" % (self.__class__.__name__, self.bot_id, message))
 
-    def process_snap(self, snap_obj, data):
+    @staticmethod
+    def process_snap(snap_obj, data):
         media_type = snap_obj["media_type"]
         sender = snap_obj["sender"]
         snap_id = snap_obj['id']
         duration = snap_obj['time']
-        snap = Snap(data = data,
-                    snap_id = snap_id,
-                    media_type = media_type,
-                    duration = duration,
-                    sender = sender)
+        snap = Snap(data=data,
+                    snap_id=snap_id,
+                    media_type=media_type,
+                    duration=duration,
+                    sender=sender)
         return snap
 
     def mark_viewed(self, snap):
         self.client.mark_viewed(snap.snap_id)
 
-    def listen(self, timeout = DEFAULT_TIMEOUT):
+    def listen(self, timeout=DEFAULT_TIMEOUT):
         while True:
             self.log("Querying for new snaps...")
             snaps = self.get_snaps()
@@ -170,7 +178,7 @@ class SnapchatBot(object):
             snap.upload(self)
 
         self.log("Posting snap as story")
-        self.client.send_to_story(snap.media_id, media_type = snap.media_type)
+        self.client.send_to_story(snap.media_id, media_type=snap.media_type)
 
     def add_friend(self, username):
         self.client.add_friend(username)
@@ -181,7 +189,7 @@ class SnapchatBot(object):
     def block(self, username):
         self.client.block(username)
 
-    def get_snaps(self, mark_viewed = True):
+    def get_snaps(self, mark_viewed=True):
         snaps = self.client.get_snaps()
         ret = []
 

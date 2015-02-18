@@ -6,12 +6,14 @@ from snapchat_bots.utils import resize_image
 
 h = HTMLParser.HTMLParser()
 
+
 def get_article_info(url):
     content = urllib2.urlopen(url).read()
     description = re.search("<meta name=\"Description\" content=\"([^\"]*)", content).group(1)
     img_src = re.search("<meta property=\"og:image\" content=\"([^\"]*)", content).group(1)
     img = download_image(img_src)
-    return (h.unescape(description), img)
+    return h.unescape(description), img
+
 
 def download_image(src):
     tmp = tempfile.NamedTemporaryFile(suffix = ".jpg")
@@ -19,12 +21,14 @@ def download_image(src):
     img = Image.open(tmp.name)
     return img
 
+
 def get_last_breaking_news_url():
     content = urllib2.urlopen("https://twitter.com/BBCBreaking").read()
     try:
         return re.search('http://bbc.in[^<\"]*', content).group(0)
     except:
         pass
+
 
 def create_breaking_news_image_from_info(info):
     title, header_img = info
@@ -44,6 +48,7 @@ def create_breaking_news_image_from_info(info):
     im.paste(header_img, (0, current_h))
 
     return im
+
 
 class ReporterBot(SnapchatBot):
     def initialize(self):
