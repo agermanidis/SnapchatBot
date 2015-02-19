@@ -1,6 +1,6 @@
 import subprocess
 from PIL import Image
-from utils import guess_type, create_temporary_file, get_video_duration, resize_image, file_extension_for_type
+from utils import guess_type, create_temporary_file, get_video_duration, resize_image, xtension_for_type
 from constants import MEDIA_TYPE_IMAGE, MEDIA_TYPE_VIDEO, DEFAULT_DURATION
 from exceptions import UnknownMediaType
 
@@ -55,7 +55,7 @@ class Snap(object):
         if 'data' in opts:
             self.media_type = opts['media_type']
 
-            suffix = "." + get_file_extension(opts['media_type'])
+            suffix = "." + file_extension_for_type(opts['media_type'])
 
             self.file = create_temporary_file(suffix)
 

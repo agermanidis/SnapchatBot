@@ -15,7 +15,6 @@ def get_bucket(conn, name, public = False):
         b.make_public()
     return b
 
-
 def upload_file(bucket, filename):
     k = Key(bucket)
     k.key = uuid.uuid4().hex + get_file_extension(filename)
@@ -23,22 +22,18 @@ def upload_file(bucket, filename):
     k.make_public()
     return public_url_for(k)
 
-
 def get_file_extension(filename):
     return os.path.splitext(filename)[1]
-
 
 def get_url_extension(url):
     path = urlparse.urlparse(url).path
     return os.path.splitext(path)[1]
-
 
 def download_file(url):
     resp = requests.get(url)
     local_file = tempfile.NamedTemporaryFile(suffix = get_url_extension(url), delete=False)
     local_file.write(resp.content)
     return local_file.name
-
 
 def reverse_image_search(url):
     value = "Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.27 Safari/537.17"
