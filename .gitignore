@@ -7,3 +7,4 @@ dist/
 agents.yml
 temp_dir
 run_bots.py
+py*

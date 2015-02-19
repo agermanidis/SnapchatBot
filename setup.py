@@ -15,7 +15,6 @@ setup(
     url='https://github.com/agermanidis/SnapchatBot',
     packages=['snapchat_bots'],
     install_requires=[
-        'pysnap>=0.1.1',
         'schedule>=0.3.1',
         'requests>=2.5.1'
     ],

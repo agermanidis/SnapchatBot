@@ -4,8 +4,6 @@ Introducing SnapchatBot, an easy way to program Snapchat accounts to do anything
 SnapchatBot can be used to easily create image-based notification services, chatbots, search interfaces,
 and any kind of intelligent agent that uses picture messages as its interaction mode.
 
-Uses the Snapchat's unofficial API as disclosed by [GibSec](http://gibsonsec.org/snapchat/fulldisclosure/).
-
 ## Bots Included
 
 #### The Reflector Bot
@@ -19,7 +17,7 @@ Sends back everything you send it.
 Takes all the snaps sent to it and adds them to its story. It can be used to collect responses
 from multiple people around a single theme, much like a Twitter hashtag.
 
-#### The Auto-Welcome Bot
+#### The Auto-Welcomer Bot
 *(source at examples/autowelcomebot.py)*
 
 Sends you an auto-welcome message when you add it to your friends.
@@ -35,18 +33,18 @@ Sends you a snap when breaking news happen. Follows the [BBC Breaking News twitt
 When sent an image, sends back the most similar image to that picture on the web. Uses Google Image Search.
 
 #### The GIF Bot
-*(source at examples/gifmaniac.py)*
+*(source at examples/gifbot.py)*
 
 Posts popular GIFs taken from the [Giphy](http://giphy.com) home page to its story.
 
-#### The Connector
+#### The Connector Bot
 *(source at examples/connectorbot.py)*
 
 When you add the Connector to your friends, it links you with a stranger who's also added it. Every snap sent to the Connector will then arrive at the stranger's inbox, and all snaps sent from the stranger to the Connector will come to you. It's like ChatRoulette on Snapchat.
 
 ## Installation
 
-    $ python setup.py install
+    $ sudo sh scripts/setup.sh
 
 You also need to have [ffmpeg](https://www.ffmpeg.org/) and [ImageMagick](http://www.imagemagick.org/) installed.
 
