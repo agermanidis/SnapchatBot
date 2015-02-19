@@ -3,7 +3,6 @@ from PIL import Image
 from constants import MEDIA_TYPE_IMAGE, MEDIA_TYPE_VIDEO, MEDIA_TYPE_VIDEO_WITHOUT_AUDIO, SNAP_IMAGE_DIMENSIONS
 
 def file_extension_for_type(media_type):
-    print media_type
     if media_type is MEDIA_TYPE_IMAGE:
         return ".jpg"
     else:
