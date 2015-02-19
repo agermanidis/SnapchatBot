@@ -44,7 +44,7 @@ When you add the Connector to your friends, it links you with a stranger who's a
 
 ## Installation
 
-    $ sudo sh scripts/setup.sh
+    $ python setup.py install
 
 You also need to have [ffmpeg](https://www.ffmpeg.org/) and [ImageMagick](http://www.imagemagick.org/) installed.
 
