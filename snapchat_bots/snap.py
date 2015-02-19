@@ -1,7 +1,9 @@
 import subprocess
 from PIL import Image
-from utils import guess_type, create_temporary_file, get_video_duration, resize_image, xtension_for_type
-from constants import MEDIA_TYPE_IMAGE, MEDIA_TYPE_VIDEO, DEFAULT_DURATION
+from StringIO import StringIO
+
+from utils import guess_type, create_temporary_file, get_video_duration, resize_image, file_extension_for_type
+from constants import MEDIA_TYPE_IMAGE, MEDIA_TYPE_VIDEO, DEFAULT_DURATION, SNAP_IMAGE_DIMENSIONS
 from exceptions import UnknownMediaType
 
 class Snap(object):

@@ -1,8 +1,9 @@
 import tempfile, mimetypes, datetime, subprocess, re, math
 from PIL import Image
-from constants import MEDIA_TYPE_IMAGE, MEDIA_TYPE_VIDEO, MEDIA_TYPE_VIDEO_WITHOUT_AUDIO
+from constants import MEDIA_TYPE_IMAGE, MEDIA_TYPE_VIDEO, MEDIA_TYPE_VIDEO_WITHOUT_AUDIO, SNAP_IMAGE_DIMENSIONS
 
 def file_extension_for_type(media_type):
+    print media_type
     if media_type is MEDIA_TYPE_IMAGE:
         return ".jpg"
     else:
@@ -23,7 +24,7 @@ def guess_type(path):
     return MEDIA_TYPE_UNKNOWN
 
 def resize_image(im, output_path):
-    im.thumbnail(SNAPCHAT_IMAGE_DIMENSIONS, Image.ANTIALIAS)
+    im.thumbnail(SNAP_IMAGE_DIMENSIONS, Image.ANTIALIAS)
     im.save(output_path)
 
 def duration_string_to_timedelta(s):
