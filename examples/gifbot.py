@@ -3,6 +3,7 @@ from argparse import ArgumentParser
 from snapchat_bots import SnapchatBot, Snap
 from lxml.html import parse
 
+
 def grab_trending_gif_urls():
     doc = parse("http://giphy.com").getroot()
     els = doc.cssselect(".gif-link img")[:10]
@@ -11,14 +12,17 @@ def grab_trending_gif_urls():
         ret.append("http:" +re.sub(r"\/([^./])*\.gif", "/giphy.gif", el.attrib['src']))
     return ret
 
+
 def gif_to_video(url):
     f = tempfile.NamedTemporaryFile(suffix=".mp4", delete = False)
     code = subprocess.Popen(["/bin/sh", "scripts/gif_to_mp4.sh", url, f.name]).wait()
-    print code
+    print(code)
     return f.name
+
 
 def is_valid_video(filename):
     return subprocess.Popen(["ffprobe", filename]).wait() == 0
+
 
 class GIFBot(SnapchatBot):
     def on_friend_add(self, friend):
