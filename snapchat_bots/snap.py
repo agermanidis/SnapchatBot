@@ -1,4 +1,4 @@
-import subprocess
+import subprocess, uuid
 from PIL import Image
 from StringIO import StringIO
 
