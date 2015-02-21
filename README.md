@@ -1,7 +1,7 @@
 # SnapchatBot: Python library for building bots that live on Snapchat
 
 Introducing SnapchatBot, an easy way to program Snapchat accounts to do anything you want.
-SnapchatBot can be used to easily create image-based notification services, chatbots, search interfaces,
+SnapchatBot can be used to create image-based notification services, chatbots, search interfaces,
 and any kind of intelligent agent that uses picture messages as its interaction mode.
 
 ## Bots Included
