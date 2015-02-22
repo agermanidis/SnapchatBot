@@ -92,7 +92,7 @@ class SnapchatBot(object):
 
         self.log("Sending snap %s to %s" % (snap.snap_id, recipients_str))
 
-        self.client.send(snap.media_id, recipients_str)
+        self.client.send(snap.media_id, recipients_str, snap.duration)
 
     def post_story(self, snap):
         if not snap.uploaded:
@@ -100,7 +100,7 @@ class SnapchatBot(object):
             snap.upload(self)
 
         self.log("Posting snap as story")
-        self.client.send_to_story(snap.media_id, media_type=snap.media_type)
+        self.client.send_to_story(snap.media_id, snap.duration, snap.media_type)
 
     def add_friend(self, username):
         self.client.add_friend(username)
