@@ -29,13 +29,11 @@ class SnapchatBot(object):
         logger.log(level, "[%s-%s] %s" % (self.__class__.__name__, self.bot_id, message))
 
     @staticmethod
-    def process_snap(snap_obj, data, capture_snap=False):
+    def process_snap(snap_obj, data):
         media_type = snap_obj["media_type"]
         sender = snap_obj["sender"]
         snap_id = snap_obj['id']
         duration = snap_obj['time']
-        if capture_snap:
-            save_snap(data, sender, media_type)
         snap = Snap(data=data,
                     snap_id=snap_id,
                     media_type=media_type,
@@ -114,7 +112,7 @@ class SnapchatBot(object):
     def block(self, username):
         self.client.block(username)
 
-    def get_snaps(self, mark_viewed=True, capture_snaps=False):
+    def get_snaps(self, mark_viewed=True):
         snaps = self.client.get_snaps()
         ret = []
 
@@ -127,7 +125,7 @@ class SnapchatBot(object):
             if data is None:
                 continue
 
-            snap = self.process_snap(snap_obj, data, capture_snaps)
+            snap = self.process_snap(snap_obj, data)
 
             if mark_viewed:
                 self.mark_viewed(snap)

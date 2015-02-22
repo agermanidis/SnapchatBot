@@ -11,15 +11,14 @@ def file_extension_for_type(media_type):
 def create_temporary_file(suffix):
     return tempfile.NamedTemporaryFile(suffix=suffix, delete=False)
 
-def save_snap(data, sender, suffix):
-    if not int(suffix):
-        extension = ".jpg"
-    else:
-        extension = ".mp4"
+def save_snap(snap):
     now = datetime.datetime.now()
-    filename = '%s-%s.%s.%s-%s:%s:%s%s' % (sender, now.month, now.day, now.year, now.hour, now.minute, now.second, extension)
+    filename = '%s-%s.%s.%s-%s:%s:%s%s' % (snap.sender, now.month, now.day, now.year, now.hour, now.minute, now.second, snap.file.name[-4:])
     with open(filename, 'wb') as f:
-        f.write(data)
+        data = snap.file.file.read(8192)
+        while data:
+            f.write(data)
+            data = snap.file.file.read(8192)
 
 def is_video_file(path):
     return mimetypes.guess_type(path)[0].startswith("video")
