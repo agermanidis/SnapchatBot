@@ -61,7 +61,7 @@ class Snap(object):
 
             self.file = create_temporary_file(suffix)
 
-             if self.media_type is MEDIA_TYPE_VIDEO or MEDIA_TYPE_VIDEO_WITHOUT_AUDIO:
+            if self.media_type is MEDIA_TYPE_VIDEO or MEDIA_TYPE_VIDEO_WITHOUT_AUDIO:
                 self.file.write(opts['data'])
                 self.file.flush()
 
