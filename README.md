@@ -46,7 +46,12 @@ When you add the Connector to your friends, it links you with a stranger who's a
 
     $ python setup.py install
 
-You also need to have [ffmpeg](https://www.ffmpeg.org/) and [ImageMagick](http://www.imagemagick.org/) installed.
+Dependencies :
+* [ffmpeg](https://www.ffmpeg.org/)
+* [ImageMagick](http://www.imagemagick.org/)
+* [libjpeg](http://ijg.org/)
+* [Pillow](https://pypi.python.org/pypi/Pillow)
+* Please note that you could also include support for other librairies, but we'll keep it to the minimum needed.
 
 ## How to build your own bots
 
