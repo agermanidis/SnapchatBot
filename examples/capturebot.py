@@ -5,7 +5,6 @@ from snapchat_bots.utils import save_snap
 class CaptureBot(SnapchatBot):
     def on_snap(self, sender, snap):
         save_snap(snap)
-        self.send_snap([sender], snap)
     
 
 if __name__ == '__main__':
