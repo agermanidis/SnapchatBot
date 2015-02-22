@@ -1,5 +1,5 @@
-from argparse import ArgumentParser
 import time
+from argparse import ArgumentParser
 
 from snapchat_bots import SnapchatBot
 
