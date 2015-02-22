@@ -1,7 +1,6 @@
 from argparse import ArgumentParser
 from snapchat_bots import SnapchatBot
 
-
 class ReflectorBot(SnapchatBot):
     def on_snap(self, sender, snap):
         self.send_snap([sender], snap)
@@ -20,4 +19,4 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     bot = ReflectorBot(args.username, args.password)
-    bot.listen(timeout=5)
+    bot.listen(timeout=60)

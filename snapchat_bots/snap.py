@@ -2,7 +2,7 @@ import subprocess, uuid
 from PIL import Image
 from StringIO import StringIO
 
-from utils import guess_type, create_temporary_file, get_video_duration, resize_image, file_extension_for_type
+from utils import guess_type, create_temporary_file, get_video_duration, resize_image, file_extension_for_type, save_snap
 from constants import MEDIA_TYPE_IMAGE, MEDIA_TYPE_VIDEO, DEFAULT_DURATION, SNAP_IMAGE_DIMENSIONS
 from exceptions import UnknownMediaType
 

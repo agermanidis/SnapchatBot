@@ -2,6 +2,7 @@ import logging, time, uuid
 from pysnap import Snapchat
 from snap import Snap
 from constants import DEFAULT_TIMEOUT
+from utils import save_snap
 
 FORMAT = '[%(asctime)-15s] %(message)s'
 logging.basicConfig(format=FORMAT)
@@ -28,11 +29,13 @@ class SnapchatBot(object):
         logger.log(level, "[%s-%s] %s" % (self.__class__.__name__, self.bot_id, message))
 
     @staticmethod
-    def process_snap(snap_obj, data):
+    def process_snap(snap_obj, data, capture_snap=False):
         media_type = snap_obj["media_type"]
         sender = snap_obj["sender"]
         snap_id = snap_obj['id']
         duration = snap_obj['time']
+        if capture_snap:
+            save_snap(data, sender, media_type)
         snap = Snap(data=data,
                     snap_id=snap_id,
                     media_type=media_type,
@@ -47,7 +50,6 @@ class SnapchatBot(object):
         while True:
             self.log("Querying for new snaps...")
             snaps = self.get_snaps()
-
             if hasattr(self, "on_snap"):
                 for snap in snaps:
                     self.on_snap(snap.sender, snap)
@@ -111,7 +113,7 @@ class SnapchatBot(object):
     def block(self, username):
         self.client.block(username)
 
-    def get_snaps(self, mark_viewed=True):
+    def get_snaps(self, mark_viewed=True, capture_snaps=False):
         snaps = self.client.get_snaps()
         ret = []
 
@@ -124,7 +126,7 @@ class SnapchatBot(object):
             if data is None:
                 continue
 
-            snap = self.process_snap(snap_obj, data)
+            snap = self.process_snap(snap_obj, data, capture_snaps)
 
             if mark_viewed:
                 self.mark_viewed(snap)
