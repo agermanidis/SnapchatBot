@@ -50,6 +50,7 @@ class SnapchatBot(object):
         while True:
             self.log("Querying for new snaps...")
             snaps = self.get_snaps()
+
             if hasattr(self, "on_snap"):
                 for snap in snaps:
                     self.on_snap(snap.sender, snap)
