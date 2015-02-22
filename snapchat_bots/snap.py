@@ -3,7 +3,7 @@ from PIL import Image
 from StringIO import StringIO
 
 from utils import guess_type, create_temporary_file, get_video_duration, resize_image, file_extension_for_type
-from constants import MEDIA_TYPE_IMAGE, MEDIA_TYPE_VIDEO, DEFAULT_DURATION, SNAP_IMAGE_DIMENSIONS
+from constants import MEDIA_TYPE_IMAGE, MEDIA_TYPE_VIDEO, MEDIA_TYPE_VIDEO_WITHOUT_AUDIO, DEFAULT_DURATION, SNAP_IMAGE_DIMENSIONS
 from exceptions import UnknownMediaType
 
 class Snap(object):
@@ -11,7 +11,7 @@ class Snap(object):
     def from_file(path, duration = None):
         media_type = guess_type(path)
 
-        if media_type is MEDIA_TYPE_VIDEO:
+        if media_type is MEDIA_TYPE_VIDEO or MEDIA_TYPE_VIDEO_WITHOUT_AUDIO:
             if duration is None: duration = get_video_duration(path)
             tmp = create_temporary_file(".snap.mp4")
             output_path = tmp.name
@@ -61,7 +61,7 @@ class Snap(object):
 
             self.file = create_temporary_file(suffix)
 
-            if self.media_type is MEDIA_TYPE_VIDEO:
+             if self.media_type is MEDIA_TYPE_VIDEO or MEDIA_TYPE_VIDEO_WITHOUT_AUDIO:
                 self.file.write(opts['data'])
                 self.file.flush()
 
