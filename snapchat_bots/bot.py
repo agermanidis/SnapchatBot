@@ -2,6 +2,7 @@ import logging, time, uuid
 from pysnap import Snapchat
 from snap import Snap
 from constants import DEFAULT_TIMEOUT
+from utils import save_snap
 
 FORMAT = '[%(asctime)-15s] %(message)s'
 logging.basicConfig(format=FORMAT)
