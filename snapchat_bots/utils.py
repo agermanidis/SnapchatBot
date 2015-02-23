@@ -33,7 +33,7 @@ def guess_type(path):
 
 def resize_image(im, output_path):
     im.thumbnail(SNAP_IMAGE_DIMENSIONS, Image.ANTIALIAS)
-    im.save(output_path)
+    im.save(output_path, quality = 100)
 
 def duration_string_to_timedelta(s):
     [hours, minutes, seconds] = map(int, s.split(':'))
