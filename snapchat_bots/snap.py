@@ -11,7 +11,7 @@ class Snap(object):
     def from_file(path, duration = None):
         media_type = guess_type(path)
 
-        if media_type is MEDIA_TYPE_VIDEO or MEDIA_TYPE_VIDEO_WITHOUT_AUDIO:
+        if media_type is MEDIA_TYPE_VIDEO or media_type is MEDIA_TYPE_VIDEO_WITHOUT_AUDIO:
             if duration is None: duration = get_video_duration(path)
             tmp = create_temporary_file(".snap.mp4")
             output_path = tmp.name
