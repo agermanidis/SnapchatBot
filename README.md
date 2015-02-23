@@ -1,7 +1,7 @@
 # SnapchatBot: Python library for building bots that live on Snapchat
 
 Introducing SnapchatBot, an easy way to program Snapchat accounts to do anything you want.
-SnapchatBot can be used to easily create image-based notification services, chatbots, search interfaces,
+SnapchatBot can be used to create image-based notification services, chatbots, search interfaces,
 and any kind of intelligent agent that uses picture messages as its interaction mode.
 
 ## Bots Included
@@ -41,6 +41,11 @@ Posts popular GIFs taken from the [Giphy](http://giphy.com) home page to its sto
 *(source at examples/connectorbot.py)*
 
 When you add the Connector to your friends, it links you with a stranger who's also added it. Every snap sent to the Connector will then arrive at the stranger's inbox, and all snaps sent from the stranger to the Connector will come to you. It's like ChatRoulette on Snapchat.
+
+#### The Capture Bot (by [EthanBlackburn](https://github.com/EthanBlackburn))
+*(source at examples/capturebot.py)*
+
+Saves all snaps received to the current working directory.
 
 ## Installation
 
