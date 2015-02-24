@@ -1,4 +1,4 @@
-import tempfile, mimetypes, datetime, subprocess, re, math
+import tempfile, mimetypes, datetime, subprocess, re, math, os
 from PIL import Image
 from constants import MEDIA_TYPE_IMAGE, MEDIA_TYPE_VIDEO, MEDIA_TYPE_VIDEO_WITHOUT_AUDIO, SNAP_IMAGE_DIMENSIONS
 
@@ -13,12 +13,17 @@ def create_temporary_file(suffix):
 
 def save_snap(snap):
     now = datetime.datetime.now()
+    before_folder = os.getcwd()
+    if not os.path.exists("snapbot_saves"):
+        os.makedirs("snapbot_saves")
+    os.chdir("snapbot_saves")
     filename = '%s-%s.%s.%s-%s:%s:%s%s' % (snap.sender, now.month, now.day, now.year, now.hour, now.minute, now.second, snap.file.name[-4:])
     with open(filename, 'wb') as f:
         data = snap.file.file.read(8192)
         while data:
             f.write(data)
             data = snap.file.file.read(8192)
+    os.chdir(before_folder)
 
 def is_video_file(path):
     return mimetypes.guess_type(path)[0].startswith("video")
