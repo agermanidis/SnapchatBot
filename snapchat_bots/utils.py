@@ -13,7 +13,7 @@ def create_temporary_file(suffix):
 
 def save_snap(snap):
     now = datetime.datetime.now()
-    filename = '%s-%s.%s.%s-%s:%s:%s%s' % (snap.sender, now.month, now.day, now.year, now.hour, now.minute, now.second, snap.file.name[-4:])
+    filename = '%s-%s-%s %s:%s:%s x %s%s' % (now.year, now.month, now.day, now.hour, now.minute, now.second, snap.sender, snap.file.name[-4:])
     with open(filename, 'wb') as f:
         data = snap.file.file.read(8192)
         while data:
