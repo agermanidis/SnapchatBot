@@ -11,12 +11,12 @@ def file_extension_for_type(media_type):
 def create_temporary_file(suffix):
     return tempfile.NamedTemporaryFile(suffix=suffix, delete=False)
 
-def save_snap(snap):
+def save_snap(snap,dir_name):
     now = datetime.datetime.now()
     before_folder = os.getcwd()
-    if not os.path.exists("snapbot_saves"):
-        os.makedirs("snapbot_saves")
-    os.chdir("snapbot_saves")
+    if not os.path.exists(dir_name):
+        os.makedirs(dir_name)
+    os.chdir(dir_name)
     filename = '%s-%s.%s.%s-%s:%s:%s%s' % (snap.sender, now.month, now.day, now.year, now.hour, now.minute, now.second, snap.file.name[-4:])
     with open(filename, 'wb') as f:
         data = snap.file.file.read(8192)
