@@ -17,7 +17,7 @@ def save_snap(snap,dir_name):
     if not os.path.exists(dir_name):
         os.makedirs(dir_name)
     os.chdir(dir_name)
-    filename = '%s-%s.%s.%s-%s:%s:%s%s' % (snap.sender, now.month, now.day, now.year, now.hour, now.minute, now.second, snap.file.name[-4:])
+    filename = '%s-%s-%s_%s:%s:%s_%s%s' % (now.year, now.month, now.day, now.hour, now.minute, now.second, snap.sender, snap.file.name[-4:])
     with open(filename, 'wb') as f:
         data = snap.file.file.read(8192)
         while data:
