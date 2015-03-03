@@ -17,7 +17,11 @@ class SnapchatBot(object):
         self.password = password
 
         self.client = Snapchat()
-        self.client.login(username, password)
+        result = self.client.login(username, password)
+
+        if self.client.username is None and self.client.auth_token is None:
+            self.log('Authorization Failed, status: "%s" , message "%s"' % (result['status'], result['message']))
+            raise SystemExit(1)
 
         self.current_friends = self.get_friends()
         self.added_me = self.get_added_me()
