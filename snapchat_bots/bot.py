@@ -101,7 +101,21 @@ class SnapchatBot(object):
             snap.upload(self)
 
         self.log("Posting snap as story")
-        self.client.send_to_story(snap.media_id, snap.duration, snap.media_type)
+        response = self.client.send_to_story(snap.media_id, snap.duration, snap.media_type)
+
+        try:
+            snap.story_id = response['json']['story']['id']
+        except:
+            pass
+
+    def delete_story(self, snap):
+        if snap.story_id is None:
+            return
+
+        self.client._request('delete_story', {
+            'username': self.username,
+            'story_id': snap.story_id
+        })
 
     def add_friend(self, username):
         self.client.add_friend(username)
