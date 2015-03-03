@@ -51,7 +51,7 @@ Saves all snaps received to the current working directory.
 
     $ python setup.py install
 
-You also need to have [ffmpeg](https://www.ffmpeg.org/) and [ImageMagick](http://www.imagemagick.org/) installed.
+You also need to have [ffmpeg](https://www.ffmpeg.org/), [ImageMagick](http://www.imagemagick.org/), and [libjpeg](http://libjpeg.sourceforge.net/) installed.
 
 ## How to build your own bots
 
