@@ -11,7 +11,7 @@ class Snap(object):
     def from_file(path, duration = None):
         media_type = guess_type(path)
 
-        if media_type is MEDIA_TYPE_VIDEO or MEDIA_TYPE_VIDEO_WITHOUT_AUDIO:
+        if media_type is MEDIA_TYPE_VIDEO or media_type is MEDIA_TYPE_VIDEO_WITHOUT_AUDIO:
             if duration is None: duration = get_video_duration(path)
             tmp = create_temporary_file(".snap.mp4")
             output_path = tmp.name
@@ -44,6 +44,7 @@ class Snap(object):
         self.uploaded = False
         self.duration = opts['duration']
         self.media_type = opts['media_type']
+        self.story_id = None
 
         if 'sender' in opts:
             self.sender = opts['sender']
@@ -61,7 +62,7 @@ class Snap(object):
 
             self.file = create_temporary_file(suffix)
 
-            if self.media_type is MEDIA_TYPE_VIDEO or MEDIA_TYPE_VIDEO_WITHOUT_AUDIO:
+            if self.media_type is MEDIA_TYPE_VIDEO or self.media_type is MEDIA_TYPE_VIDEO_WITHOUT_AUDIO:
                 self.file.write(opts['data'])
                 self.file.flush()
 
