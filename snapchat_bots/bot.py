@@ -1,5 +1,6 @@
 import logging, time, uuid, requests
-from pysnap import make_request_token, Snapchat
+from pysnap import Snapchat
+from pysnap.utils import make_request_token, timestamp
 from snap import Snap
 from constants import DEFAULT_TIMEOUT, STATIC_TOKEN, BASE_URL
 from utils import save_snap
@@ -28,7 +29,7 @@ class SnapchatBot(object):
 
         self.client = Snapchat()
         self.client.username = username
-        self.client.auth_token = auth_token
+        self.client.auth_token = self.auth_token
 
         self.current_friends = self.get_friends()
         self.added_me = self.get_added_me()
