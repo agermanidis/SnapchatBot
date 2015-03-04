@@ -1,7 +1,7 @@
-import logging, time, uuid
-from pysnap import Snapchat
+import logging, time, uuid, requests
+from pysnap import make_request_token, Snapchat
 from snap import Snap
-from constants import DEFAULT_TIMEOUT
+from constants import DEFAULT_TIMEOUT, STATIC_TOKEN, BASE_URL
 from utils import save_snap
 
 FORMAT = '[%(asctime)-15s] %(message)s'
@@ -13,11 +13,22 @@ class SnapchatBot(object):
     def __init__(self, username, password, **kwargs):
         self.bot_id = uuid.uuid4().hex[0:4]
 
+        self.auth_token = STATIC_TOKEN
+
         self.username = username
         self.password = password
 
+        r = self._make_request("/loq/login", {
+            'username': self.username,
+            'password': self.password
+        })
+
+        result = r.json()
+        self.auth_token = result['updates_response']['auth_token']
+
         self.client = Snapchat()
-        self.client.login(username, password)
+        self.client.username = username
+        self.client.auth_token = auth_token
 
         self.current_friends = self.get_friends()
         self.added_me = self.get_added_me()
@@ -133,3 +144,24 @@ class SnapchatBot(object):
             ret.append(snap)
 
         return ret
+
+    def _make_request(self, path, data = None, method = 'POST', files = None):
+        if data is None:
+            data = {}
+
+        headers = {
+            'User-Agent': 'Snapchat/8.1.1 (iPhone5,1; iOS 8.1.3; gzip)',
+            'Accept-Language': 'en-US;q=1, en;q=0.9',
+            'Accept-Locale': 'en'
+        }
+
+        now = timestamp()
+
+        if method == 'POST':
+            data['timestamp'] = now
+            data['req_token'] = make_request_token(self.auth_token, str(now))
+            resp = requests.post(BASE_URL + path, data = data, files = files, headers = headers)
+        else:
+            resp = requests.get(BASE_URL + path, params = data, headers = headers)
+
+        return resp
