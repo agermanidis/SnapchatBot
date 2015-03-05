@@ -180,10 +180,8 @@ class SnapchatBot(object):
         if method == 'POST':
             data['timestamp'] = now
             data['req_token'] = make_request_token(self.auth_token, str(now))
-
             resp = requests.post(BASE_URL + path, data = data, files = files, headers = headers, proxies = proxies)
-
         else:
-            resp = requests.get(BASE_URL + path, params = data, headers = headers)
+            resp = requests.get(BASE_URL + path, params = data, headers = headers, proxies = proxies)
 
         return resp
