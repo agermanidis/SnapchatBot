@@ -164,6 +164,11 @@ class SnapchatBot(object):
         if data is None:
             data = {}
 
+        proxies = {
+            "http": HTTP_PROXIE,
+            "https": HTTPS_PROXIE
+        }	
+
         headers = {
             'User-Agent': 'Snapchat/8.1.1 (iPhone5,1; iOS 8.1.3; gzip)',
             'Accept-Language': 'en-US;q=1, en;q=0.9',
@@ -175,7 +180,10 @@ class SnapchatBot(object):
         if method == 'POST':
             data['timestamp'] = now
             data['req_token'] = make_request_token(self.auth_token, str(now))
-            resp = requests.post(BASE_URL + path, data = data, files = files, headers = headers)
+            if proxies:
+                resp = requests.post(BASE_URL + path, data = data, files = files, headers = headers, proxies = proxies)
+            else:
+                resp = requests.post(BASE_URL + path, data = data, files = files, headers = headers)
         else:
             resp = requests.get(BASE_URL + path, params = data, headers = headers)
 
