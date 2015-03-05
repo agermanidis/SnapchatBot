@@ -165,8 +165,7 @@ class SnapchatBot(object):
             data = {}
 
         proxies = {
-            "http": HTTP_PROXIE,
-            "https": HTTPS_PROXIE
+            "http": HTTP_PROXIE
         }	
 
         headers = {
