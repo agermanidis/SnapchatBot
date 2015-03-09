@@ -1,8 +1,8 @@
-import subprocess, uuid
+import subprocess, uuid, os
 from PIL import Image
 from StringIO import StringIO
 
-from utils import guess_type, create_temporary_file, get_video_duration, resize_image, file_extension_for_type
+from utils import guess_type, create_temporary_file, get_video_duration, resize_image, file_extension_for_type, default_filename_for_snap
 from constants import MEDIA_TYPE_IMAGE, MEDIA_TYPE_VIDEO, MEDIA_TYPE_VIDEO_WITHOUT_AUDIO, DEFAULT_DURATION, SNAP_IMAGE_DIMENSIONS
 from exceptions import UnknownMediaType
 
@@ -35,6 +35,16 @@ class Snap(object):
         f = create_temporary_file(".jpg")
         resize_image(img, f.name)
         return Snap(path=f.name, media_type=MEDIA_TYPE_IMAGE, duration=duration)
+ 
+    def save(self, output_filename = default_filename_for_snap(self), dir_name = "."):
+        if not os.path.exists(dir_name):
+            os.makedirs(dir_name)
+
+        with open(os.path.join(dir_name, filename), 'wb') as f:
+            data = self.file.file.read(8192)
+            while data:
+                f.write(data)
+                data = self.file.file.read(8192)
 
     def upload(self, bot):
         self.media_id = bot.client.upload(self.file.name)
