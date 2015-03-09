@@ -49,7 +49,7 @@ class Snap(object):
         if not os.path.exists(dir_name):
             os.makedirs(dir_name)
 
-        with open(os.path.join(dir_name, filename), 'wb') as f:
+        with open(os.path.join(dir_name, output_filename), 'wb') as f:
             data = self.file.file.read(8192)
             while data:
                 f.write(data)
