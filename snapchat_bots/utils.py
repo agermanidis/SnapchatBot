@@ -2,6 +2,9 @@ import tempfile, mimetypes, datetime, subprocess, re, math, os
 from PIL import Image
 from constants import MEDIA_TYPE_IMAGE, MEDIA_TYPE_VIDEO, MEDIA_TYPE_VIDEO_WITHOUT_AUDIO, SNAP_IMAGE_DIMENSIONS
 
+def cmd_exists(cmd):
+    return subprocess.call("type " + cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE) == 0
+
 def file_extension_for_type(media_type):
     if media_type is MEDIA_TYPE_IMAGE:
         return ".jpg"

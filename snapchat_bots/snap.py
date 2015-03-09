@@ -2,9 +2,9 @@ import subprocess, uuid, os
 from PIL import Image
 from StringIO import StringIO
 
-from utils import guess_type, create_temporary_file, get_video_duration, resize_image, file_extension_for_type, default_filename_for_snap
+from utils import guess_type, create_temporary_file, get_video_duration, resize_image, file_extension_for_type, default_filename_for_snap, cmd_exists
 from constants import MEDIA_TYPE_IMAGE, MEDIA_TYPE_VIDEO, MEDIA_TYPE_VIDEO_WITHOUT_AUDIO, DEFAULT_DURATION, SNAP_IMAGE_DIMENSIONS
-from exceptions import UnknownMediaType
+from exceptions import UnknownMediaType, CannotOpenFile
 
 class Snap(object):
     @staticmethod
@@ -35,6 +35,12 @@ class Snap(object):
         f = create_temporary_file(".jpg")
         resize_image(img, f.name)
         return Snap(path=f.name, media_type=MEDIA_TYPE_IMAGE, duration=duration)
+
+    def open(self):
+        if not cmd_exists("open"):
+            raise CannotOpenFile("Cannot open file")
+
+        subprocess.call("open %s" % self.file.name)
  
     def save(self, output_filename = default_filename_for_snap(self), dir_name = "."):
         if not os.path.exists(dir_name):
@@ -68,7 +74,7 @@ class Snap(object):
         if 'data' in opts:
             self.media_type = opts['media_type']
 
-            suffix = "." + file_extension_for_type(opts['media_type'])
+            suffix = file_extension_for_type(opts['media_type'])
 
             self.file = create_temporary_file(suffix)
 
