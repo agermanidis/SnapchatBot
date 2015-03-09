@@ -40,9 +40,12 @@ class Snap(object):
         if not cmd_exists("open"):
             raise CannotOpenFile("Cannot open file")
 
-        subprocess.call("open %s" % self.file.name)
+        subprocess.Popen(["open", self.file.name])
  
-    def save(self, output_filename = default_filename_for_snap(self), dir_name = "."):
+    def save(self, output_filename = None, dir_name = "."):
+        if output_filename is None:
+            output_filename = default_filename_for_snap(self)
+        
         if not os.path.exists(dir_name):
             os.makedirs(dir_name)
 

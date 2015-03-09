@@ -3,7 +3,6 @@ from pysnap import Snapchat
 from pysnap.utils import make_request_token, timestamp
 from snap import Snap
 from constants import DEFAULT_TIMEOUT, STATIC_TOKEN, BASE_URL
-from utils import save_snap
 
 FORMAT = '[%(asctime)-15s] %(message)s'
 logging.basicConfig(format=FORMAT)
