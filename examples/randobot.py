@@ -7,14 +7,16 @@ class RandoBot(SnapchatBot):
         self.connections = self.get_friends()
 	#If your bot ever gets blocked, uncomment these lines.
 	#Of course, make sure you have your old users backed up
-	#to the users.txt file!
+	#to the users.txt file! So you must uncomment the first
+	#three lines, while logged into the blocked bot, then
+	#uncomment the rest to re-add all users from the old bot.
 	#with open('users.txt', 'w') as file:
-	#    for item in self.connections:
-	#        print>>file, item
+	#	for item in self.connections:
+	#    		print>>file, item
 	#f = open('users.txt', 'r')
 	#for line in f:
-	#    self.add_friend(line)
-           #print(line)
+	#	self.add_friend(line)
+        #	print(line)
 	print(self.connections)
 		
     def connect(self,user):
@@ -27,25 +29,25 @@ class RandoBot(SnapchatBot):
 
     def on_friend_delete(self,friend):
         self.delete_friend(friend)
-        self.connections.discard(friend)
+        self.connections.remove(friend)
 	
     def find_random_user(self,username):
 	if len(self.connections) <= 1:
-	    return None
+		return None
         newuser = random.choice(self.connections)
 	while(newuser == username):
-	    newuser = random.choice(self.connections)
+		newuser = random.choice(self.connections)
         return newuser
 
     def on_snap(self,sender,snap):
         connection = self.find_random_user(sender)
 	if sender not in self.connections:
-	    self.connect(sender)
+		self.send_snap([sender], Snap.from_file("../resources/rando_addme.png"))
     	if connection:
-	    self.send_snap([connection],snap)
-	    print("%s sent  snap to %s" % (sender,[connection]))
+		self.send_snap([connection],snap)
+		print("%s sent  snap to %s" % (sender,[connection]))
 	else:
-	    self.send_snap([sender], Snap.from_file("../resources/rando_welcome.png"))
+		self.send_snap([sender], Snap.from_file("../resources/rando_welcome.png"))
 			
 if __name__ == '__main__':
     parser = ArgumentParser("RandoBot Bot")
