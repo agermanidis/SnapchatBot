@@ -47,6 +47,11 @@ When you add the Connector to your friends, it links you with a stranger who's a
 #### The Capture Bot (by [EthanBlackburn](https://github.com/EthanBlackburn))
 *(source at examples/capturebot.py)*
 
+#### The RandoBot (by [PhlexPlexico](https://github.com/Phlexplexico))
+*(source at examples/randobot.py)*
+
+When you add RandoBot to your friends, it throws you in a list of people who's also added it. When you send it a snap, it will send your snap to a person randomly in the list. Much like the application "Rando".
+
 Saves all snaps received to the current working directory.
 
 ## Installation
