@@ -44,7 +44,7 @@ class Snap(object):
  
     def save(self, output_filename = None, dir_name = "."):
         if output_filename is None:
-            output_filename = default_filename_for_snap(self).replace(":", "-")
+            output_filename = default_filename_for_snap(self)
         
         if not os.path.exists(dir_name):
             os.makedirs(dir_name)
