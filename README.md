@@ -50,9 +50,7 @@ When you add the Connector to your friends, it links you with a stranger who's a
 #### The RandoBot (by [PhlexPlexico](https://github.com/Phlexplexico))
 *(source at examples/randobot.py)*
 
-When you add RandoBot to your friends, it throws you in a list of people who's also added it. When you send it a snap, it will send your snap to a person randomly in the list. Much like the application "Rando".
-
-Saves all snaps received to the current working directory.
+When you add RandoBot to your friends, it throws you in a list of people who've also added it. When you send it a snap, it will send your snap to a random person in the list. Similar to the [Rando](http://techcrunch.com/2014/03/22/rip-rando/) app.
 
 ## Installation
 
