@@ -160,22 +160,7 @@ class SnapchatBot(object):
 
         return ret
 
-    def process_stories(self, stories):
-        ret = []
-        for snap_obj in stories:
-            media_key = base64.b64decode(snap_obj['media_key'])
-            media_iv = base64.b64decode(snap_obj['media_iv'])
-            data = self.client.get_story_blob(snap_obj['media_id'],
-                                              media_key,
-                                              media_iv)
-            if data is None:
-                continue
-            snap_obj['sender'] = self.username
-            snap = self.process_snap(snap_obj, data, is_story = True)
-            ret.append(snap)
-        return ret
-
-    def get_snaps(self, mark_viewed=True):
+   def get_snaps(self, mark_viewed=True):
         snaps = self.client.get_snaps()
         return self.process_snaps(snaps)                
 

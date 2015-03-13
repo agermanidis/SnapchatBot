@@ -17,7 +17,13 @@ Sends back everything you send it.
 *(source at examples/storifierbot.py)*
 
 Takes all the snaps sent to it and adds them to its story. It can be used to collect responses
-from multiple people around a single theme, much like a Twitter hashtag.
+from multiple people around a single theme, much like a Twitter
+hashtag.
+
+#### The Capture Bot (by [EthanBlackburn](https://github.com/EthanBlackburn))
+*(source at examples/capturebot.py)*
+
+Saves all snaps received to the current working directory.
 
 #### The Auto-Welcomer Bot
 *(source at examples/autowelcomebot.py)*
@@ -44,12 +50,7 @@ Posts popular GIFs taken from the [Giphy](http://giphy.com) home page to its sto
 
 When you add the Connector to your friends, it links you with a stranger who's also added it. Every snap sent to the Connector will then arrive at the stranger's inbox, and all snaps sent from the stranger to the Connector will come to you. It's like ChatRoulette on Snapchat.
 
-#### The Capture Bot (by [EthanBlackburn](https://github.com/EthanBlackburn))
-*(source at examples/capturebot.py)*
-
-Saves all snaps received to the current working directory.
-
-#### The RandoBot (by [PhlexPlexico](https://github.com/Phlexplexico))
+#### The Rando Bot (by [PhlexPlexico](https://github.com/Phlexplexico))
 *(source at examples/randobot.py)*
 
 When you add RandoBot to your friends, it throws you in a list of people who've also added it. When you send it a snap, it will send your snap to a random person in the list. Similar to the [Rando](http://techcrunch.com/2014/03/22/rip-rando/) app.
