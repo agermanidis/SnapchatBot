@@ -16,7 +16,7 @@ def create_temporary_file(suffix):
 
 def default_filename_for_snap(snap):
     now = datetime.datetime.now()
-    filename = '%s-%s-%s_%s:%s:%s_%s%s' % (now.year, now.month, now.day, now.hour, now.minute, now.second, snap.sender, snap.file.name[-4:])
+    filename = '%s-%s-%s_%s-%s-%s_%s%s' % (now.year, now.month, now.day, now.hour, now.minute, now.second, snap.sender, snap.file.name[-4:])
     return filename 
     
 def is_video_file(path):
