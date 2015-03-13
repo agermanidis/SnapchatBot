@@ -47,6 +47,8 @@ When you add the Connector to your friends, it links you with a stranger who's a
 #### The Capture Bot (by [EthanBlackburn](https://github.com/EthanBlackburn))
 *(source at examples/capturebot.py)*
 
+Saves all snaps received to the current working directory.
+
 #### The RandoBot (by [PhlexPlexico](https://github.com/Phlexplexico))
 *(source at examples/randobot.py)*
 
