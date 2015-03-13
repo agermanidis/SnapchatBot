@@ -64,6 +64,9 @@ You also need to have [ffmpeg](https://www.ffmpeg.org/), [ImageMagick](http://ww
 * `SnapchatBot#delete_friend(username)` -- deletes user with username `username` from the bot's friends
 * `SnapchatBot#block(username)` -- blocks user with username `username`
 * `SnapchatBot#get_snaps(mark_viewed = True)` -- gets snaps in the bot's inbox that haven't been viewed yet (use `mark_viewed = False` as a keyword argument if you don't want the bot to mark every snap received as viewed)
+* `SnapchatBot#get_my_stories()` -- gets all snaps in the bot's story
+* `SnapchatBot#get_friend_stories()` -- gets all the stories of the bot's friends
+* `SnapchatBot#clear_stories()` -- deletes all the bot's stories
 * `SnapchatBot#mark_viewed(snap)` -- marks `snap` as viewed
 * `SnapchatBot#get_friends()` -- gets the bot's friends
 * `SnapchatBot#get_added_me()` -- gets all users that have added the bot to their friends

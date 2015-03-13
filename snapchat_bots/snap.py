@@ -63,7 +63,9 @@ class Snap(object):
         self.uploaded = False
         self.duration = opts['duration']
         self.media_type = opts['media_type']
-        self.story_id = None
+
+        if opts.get("is_story", False):
+            self.story_id = opts['snap_id']
 
         if 'sender' in opts:
             self.sender = opts['sender']
