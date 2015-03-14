@@ -175,7 +175,7 @@ class SnapchatBot(object):
             ret.append(snap)
         return ret
 
-   def get_snaps(self, mark_viewed=True):
+    def get_snaps(self, mark_viewed=True):
         snaps = self.client.get_snaps()
         return self.process_snaps(snaps)                
 
