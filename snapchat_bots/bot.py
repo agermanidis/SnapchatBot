@@ -92,11 +92,7 @@ class SnapchatBot(object):
         return map(lambda fr: fr['name'], updates["added_friends"])
 
     def send_snap(self, recipients, snap):
-        self.log("Preparing to send snap %s" % snap.snap_id)
-
-        if not snap.uploaded:
-            self.log("Uploading snap %s" % snap.snap_id)
-            snap.upload(self)
+        media_id = self._upload_snap(snap)
 
         if type(recipients) is not list:
             recipients = [recipients]
@@ -105,15 +101,11 @@ class SnapchatBot(object):
 
         self.log("Sending snap %s to %s" % (snap.snap_id, recipients_str))
 
-        self.client.send(snap.media_id, recipients_str, snap.duration)
+        self.client.send(media_id, recipients_str, snap.duration)
 
     def post_story(self, snap):
-        if not snap.uploaded:
-            self.log("Uploading snap")
-            snap.upload(self)
-
-        self.log("Posting snap as story")
-        response = self.client.send_to_story(snap.media_id, snap.duration, snap.media_type)
+        media_id = self._upload_snap(snap)
+        response = self.client.send_to_story(media_id, snap.duration, snap.media_type)
 
         try:
             snap.story_id = response['json']['story']['id']
@@ -160,7 +152,7 @@ class SnapchatBot(object):
 
         return ret
 
-   def get_snaps(self, mark_viewed=True):
+    def get_snaps(self, mark_viewed=True):
         snaps = self.client.get_snaps()
         return self.process_snaps(snaps)                
 
@@ -185,6 +177,13 @@ class SnapchatBot(object):
     def clear_stories(self):
         for story in self.get_my_stories():
             self.delete_story(story)
+
+    def _upload_snap(self, snap):
+        if not snap.get("uploaded"):
+            snap.media_id = self.client.upload(snap.file.name)
+            snap.uploaded = True
+
+        return snap.media_id
 
     def _make_request(self, path, data = None, method = 'POST', files = None):
         if data is None:

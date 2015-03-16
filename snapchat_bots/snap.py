@@ -2,7 +2,7 @@ import subprocess, uuid, os
 from PIL import Image
 from StringIO import StringIO
 
-from utils import guess_type, create_temporary_file, get_video_duration, resize_image, file_extension_for_type, default_filename_for_snap, cmd_exists
+from utils import guess_type, create_temporary_file, get_video_duration, resize_image, file_extension_for_type, default_filename_for_snap, cmd_exists, extract_zip_components
 from constants import MEDIA_TYPE_IMAGE, MEDIA_TYPE_VIDEO, MEDIA_TYPE_VIDEO_WITHOUT_AUDIO, DEFAULT_DURATION, SNAP_IMAGE_DIMENSIONS
 from exceptions import UnknownMediaType, CannotOpenFile
 
@@ -36,6 +36,12 @@ class Snap(object):
         resize_image(img, f.name)
         return Snap(path=f.name, media_type=MEDIA_TYPE_IMAGE, duration=duration)
 
+    def is_image(self):
+        return media_type is MEDIA_TYPE_IMAGE
+
+    def is_video(self):
+        return media_type is MEDIA_TYPE_VIDEO or media_type is MEDIA_TYPE_VIDEO_WITHOUT_AUDIO
+
     def open(self):
         if not cmd_exists("open"):
             raise CannotOpenFile("Cannot open file")
@@ -55,10 +61,6 @@ class Snap(object):
                 f.write(data)
                 data = self.file.file.read(8192)
 
-    def upload(self, bot):
-        self.media_id = bot.client.upload(self.file.name)
-        self.uploaded = True
-
     def __init__(self, **opts):
         self.uploaded = False
         self.duration = opts['duration']
@@ -77,18 +79,22 @@ class Snap(object):
             self.from_me = True
 
         if 'data' in opts:
-            self.media_type = opts['media_type']
+            data = opts['data']
 
-            suffix = file_extension_for_type(opts['media_type'])
+            if data[0:2] == 'PK':
+                video_filename, _ = extract_zip_components(data)
+                self.file = open(video_filename, 'rb')
 
-            self.file = create_temporary_file(suffix)
+            else:
+                suffix = file_extension_for_type(opts['media_type'])
+                self.file = create_temporary_file(suffix)
 
             if self.media_type is MEDIA_TYPE_VIDEO or self.media_type is MEDIA_TYPE_VIDEO_WITHOUT_AUDIO:
-                self.file.write(opts['data'])
+                self.file.write(data)
                 self.file.flush()
 
             else:
-                image = Image.open(StringIO(opts['data']))
+                image = Image.open(StringIO(data))
                 resize_image(image, self.file.name)
 
         else:
