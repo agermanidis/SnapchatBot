@@ -46,10 +46,14 @@ def extract_zip_components(data):
     filenames = os.listdir(unzip_dir)
     for filename in filenames:
         if filename.startswith("media"):
-            video_component = os.path.join(unzip_dir, filename)
+            old_video_path = os.path.join(unzip_dir, filename)
+            new_video_path = os.path.join(unzip_dir, "video.mp4")
+            os.rename(old_video_path, new_video_path)
+
         elif filename.startswith("overlay"):
             overlay_component = os.path.join(unzip_dir, filename)
-    return video_component, overlay_component
+
+    return new_video_path, overlay_component
 
 def duration_string_to_timedelta(s):
     [hours, minutes, seconds] = map(int, s.split(':'))
