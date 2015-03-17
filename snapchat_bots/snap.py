@@ -90,6 +90,7 @@ class Snap(object):
                 self.file = create_temporary_file(suffix)
 
             if self.media_type is MEDIA_TYPE_VIDEO or self.media_type is MEDIA_TYPE_VIDEO_WITHOUT_AUDIO:
+                self.file = open(video_filename, 'r+')
                 self.file.write(data)
                 self.file.flush()
 
