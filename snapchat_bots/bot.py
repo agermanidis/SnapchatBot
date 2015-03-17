@@ -194,7 +194,7 @@ class SnapchatBot(object):
             self.delete_story(story)
 
     def _upload_snap(self, snap):
-        if not snap.get("uploaded"):
+        if not snap.uploaded:
             snap.media_id = self.client.upload(snap.file.name)
             snap.uploaded = True
 
