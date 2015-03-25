@@ -83,7 +83,7 @@ class Snap(object):
 
             if data[0:2] == 'PK':
                 video_filename, _ = extract_zip_components(data)
-                self.file = open(video_filename, 'rb')
+                self.file = open(video_filename, 'rb+')
 
             else:
                 suffix = file_extension_for_type(opts['media_type'])
