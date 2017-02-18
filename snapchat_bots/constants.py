@@ -1,6 +1,9 @@
 BASE_URL = 'https://feelinsonice-hrd.appspot.com'
 STATIC_TOKEN = 'm198sOkJEn37DjqZ32lpRu76xmw288xSQ9'
 
+HTTPS_PROXIE = ''
+HTTP_PROXIE = ''
+
 DEFAULT_TIMEOUT = 15
 DEFAULT_DURATION = 5
 
