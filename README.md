@@ -1,3 +1,5 @@
+<h1 style='color: red'>This repo is deprecated due to changes in Snapchat's unofficial API.</h1>
+
 ![SnapchatBot](http://i.imgur.com/s8XADUn.png?1)
 
 # SnapchatBot: A library for making bots that live on Snapchat
