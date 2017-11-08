@@ -57,6 +57,12 @@ When you add the Connector to your friends, it links you with a stranger who's a
 
 When you add RandoBot to your friends, it throws you in a list of people who've also added it. When you send it a snap, it will send your snap to a random person in the list. Similar to the [Rando](http://techcrunch.com/2014/03/22/rip-rando/) app.
 
+
+#### The Postman Bot (by [N07070](https://github.com/N07070))
+*(source at example/postmanbot.py)*
+
+Sends a message in a snap to the user or to all the friends of the bot.
+
 ## Installation
 
     $ python setup.py install
