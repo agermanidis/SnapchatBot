@@ -9,7 +9,9 @@ from exceptions import UnknownMediaType, CannotOpenFile
 class Snap(object):
     @staticmethod
     def from_file(path, duration = None):
+        print(f"path: {path}")
         media_type = guess_type(path)
+        print(f"media_type: {media_type}")
 
         if media_type is MEDIA_TYPE_VIDEO or media_type is MEDIA_TYPE_VIDEO_WITHOUT_AUDIO:
             if duration is None: duration = get_video_duration(path)
@@ -28,6 +30,7 @@ class Snap(object):
         else:
             raise UnknownMediaType("Could not determine media type of the file")
 
+        print(f"output_path: {output_path}, duration: {duration}")
         return Snap(path=output_path, media_type=media_type, duration=duration)
 
     @staticmethod
@@ -47,11 +50,11 @@ class Snap(object):
             raise CannotOpenFile("Cannot open file")
 
         subprocess.Popen(["open", self.file.name])
- 
+
     def save(self, output_filename = None, dir_name = "."):
         if output_filename is None:
             output_filename = default_filename_for_snap(self)
-        
+
         if not os.path.exists(dir_name):
             os.makedirs(dir_name)
 
@@ -90,13 +93,4 @@ class Snap(object):
                 self.file = create_temporary_file(suffix)
 
             if self.media_type is MEDIA_TYPE_VIDEO or self.media_type is MEDIA_TYPE_VIDEO_WITHOUT_AUDIO:
-                self.file.write(data)
-                self.file.flush()
-
-            else:
-                image = Image.open(StringIO(data))
-                resize_image(image, self.file.name)
-
-        else:
-            path = opts['path']
-            self.file = open(path)
+                self.file.write
