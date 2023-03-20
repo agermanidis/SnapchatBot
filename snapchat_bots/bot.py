@@ -1,15 +1,23 @@
-import logging, time, uuid, requests, base64
+import logging
+import time
+import uuid
+
+import requests
+import base64
+
 from pysnap import Snapchat
 from pysnap.utils import make_request_token, timestamp
+
 from snap import Snap
 from constants import DEFAULT_TIMEOUT, STATIC_TOKEN, BASE_URL
 
-FORMAT = '[%(asctime)-15s] %(message)s'
+FORMAT = "[%(asctime)-15s] %(message)s"
 logging.basicConfig(format=FORMAT)
 logger = logging.getLogger()
-logger.level = logging.DEBUG
+logger.setLevel(logging.DEBUG)
 
-class SnapchatBot(object):
+
+class SnapchatBot:
     def __init__(self, username, password, **kwargs):
         self.bot_id = uuid.uuid4().hex[0:4]
 
@@ -19,15 +27,15 @@ class SnapchatBot(object):
         self.password = password
 
         r = self._make_request("/loq/login", {
-            'username': self.username,
-            'password': self.password
+            "username": self.username,
+            "password": self.password,
         })
 
         result = r.json()
-        self.auth_token = result['updates_response']['auth_token']
+        self.auth_token = result["updates_response"]["auth_token"]
 
         self.client = Snapchat()
-        self.client.username = username
+        self.client.username = self.username
         self.client.auth_token = self.auth_token
 
         self.current_friends = self.get_friends()
@@ -39,18 +47,19 @@ class SnapchatBot(object):
     def log(self, message, level=logging.DEBUG):
         logger.log(level, "[%s-%s] %s" % (self.__class__.__name__, self.bot_id, message))
 
-    @staticmethod
-    def process_snap(snap_obj, data, is_story = False):
+    def process_snap(self, snap_obj, data, is_story=False):
         media_type = snap_obj["media_type"]
         sender = snap_obj["sender"]
-        snap_id = snap_obj['id']
-        duration = snap_obj['time']
-        snap = Snap(data=data,
-                    snap_id=snap_id,
-                    media_type=media_type,
-                    duration=duration,
-                    sender=sender,
-                    is_story=is_story)
+        snap_id = snap_obj["id"]
+        duration = snap_obj["time"]
+        snap = Snap(
+            data=data,
+            snap_id=snap_id,
+            media_type=media_type,
+            duration=duration,
+            sender=sender,
+            is_story=is_story,
+        )
         return snap
 
     def mark_viewed(self, snap):
@@ -85,14 +94,15 @@ class SnapchatBot(object):
             time.sleep(timeout)
 
     def get_friends(self):
-        return map(lambda fr: fr['name'], self.client.get_friends())
+        return list(map(lambda fr: fr["name"], self.client.get_friends()))
 
     def get_added_me(self):
         updates = self.client.get_updates()
-        return map(lambda fr: fr['name'], updates["added_friends"])
+        return list(map(lambda fr: fr["name"], updates["added_friends"]))
 
     def send_snap(self, recipients, snap):
-        media_id = self._upload_snap(snap)
+        media_id = self._upload_snap
+
 
         if type(recipients) is not list:
             recipients = [recipients]
