@@ -2,68 +2,68 @@
 
 ![SnapchatBot](http://i.imgur.com/s8XADUn.png?1)
 
-# SnapchatBot: A library for making bots that live on Snapchat
+SnapchatBot: A library for making bots that live on Snapchat
 
 Introducing SnapchatBot, an easy way to program Snapchat accounts to do anything you want.
 SnapchatBot can be used to create image-based notification services, chatbots, search interfaces,
 and any kind of intelligent agent that uses picture messages as its interaction mode.
 
-## Bots Included
+Bots Included
 
-#### The Reflector Bot
+The Reflector Bot
 *(source at examples/reflectorbot.py)*
 
 Sends back everything you send it.
 
-#### The Storifier Bot
+The Storifier Bot
 *(source at examples/storifierbot.py)*
 
 Takes all the snaps sent to it and adds them to its story. It can be used to collect responses
 from multiple people around a single theme, much like a Twitter
 hashtag.
 
-#### The Capture Bot (by [EthanBlackburn](https://github.com/EthanBlackburn))
+The Capture Bot (by [EthanBlackburn](https://github.com/EthanBlackburn))
 *(source at examples/capturebot.py)*
 
 Saves all snaps received to the current working directory.
 
-#### The Auto-Welcomer Bot
+The Auto-Welcomer Bot
 *(source at examples/autowelcomebot.py)*
 
 Sends you an auto-welcome message when you add it to your friends.
 
-#### The Reporter Bot
+The Reporter Bot
 *(source at examples/reporterbot.py)*
 
 Sends you a snap when breaking news happen. Follows the [BBC Breaking News twitter account](https://twitter.com/bbcbreaking).
 
-#### The Googler Bot
+The Googler Bot
 *(source at examples/googlerbot.py)*
 
 When sent an image, sends back the most similar image to that picture on the web. Uses Google Image Search.
 
-#### The GIF Bot
+The GIF Bot
 *(source at examples/gifbot.py)*
 
 Posts popular GIFs taken from the [Giphy](http://giphy.com) home page to its story.
 
-#### The Connector Bot
+The Connector Bot
 *(source at examples/connectorbot.py)*
 
 When you add the Connector to your friends, it links you with a stranger who's also added it. Every snap sent to the Connector will then arrive at the stranger's inbox, and all snaps sent from the stranger to the Connector will come to you. It's like ChatRoulette on Snapchat.
 
-#### The Rando Bot (by [PhlexPlexico](https://github.com/Phlexplexico))
+The Rando Bot (by [PhlexPlexico](https://github.com/Phlexplexico))
 *(source at examples/randobot.py)*
 
 When you add RandoBot to your friends, it throws you in a list of people who've also added it. When you send it a snap, it will send your snap to a random person in the list. Similar to the [Rando](http://techcrunch.com/2014/03/22/rip-rando/) app.
 
-## Installation
+Installation
 
-    $ python setup.py install
+    python setup.py install
 
 You also need to have [ffmpeg](https://www.ffmpeg.org/), [ImageMagick](http://www.imagemagick.org/), and [libjpeg](http://libjpeg.sourceforge.net/) installed.
 
-## How to build your own bots
+How to build your own bots
 
 `SnapchatBot` currently supports the following methods:
 
